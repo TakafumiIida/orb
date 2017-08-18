@@ -17,7 +17,13 @@ var themeManager = require('./orb.themes');
 function getpropertyvalue(property, configs, defaultvalue) {
     for (var i = 0; i < configs.length; i++) {
         if (configs[i][property] != null) {
-            return configs[i][property];
+            if (typeof configs[i][property] === "function") {
+                if (configs[i][property].name !== "") {
+                    return configs[i][property];
+                }
+            } else {
+                return configs[i][property];
+            }
         }
     }
     return defaultvalue;
